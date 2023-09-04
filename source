@@ -1,6 +1,4 @@
-function()
-
-local dbdmods = {}
+local dbdmods = {
 
 function dbdmods.AwardAchivement(name,desc,icon)
 
@@ -23,27 +21,26 @@ function dbdmods.AwardAchivement(name,desc,icon)
     task.wait(1)
     L_Holder_2.Visible = false
 
-end
+end,
 
 function dbdmods.DieBasic()
     fireclickdetector(workspace.TestDeath.ClickDetector)
-end
+end,
 
 function dbdmods.GetRush()
     return workspace.ActiveEntities:FindFirstChild("Rush")
-end
+end,
 
 function dbdmods.GetAmbush()
     return workspace.ActiveEntities:FindFirstChild("Ambush")
-end
+end,
 
 function dbdmods.GetSeek()
     return workspace.ActiveEntities:FindFirstChild("Seek")
-end
+end,
 
 function dbdmods.GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
-end
+end,
 
-return dbdmods
-end
+}
