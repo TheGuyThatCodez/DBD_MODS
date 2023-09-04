@@ -1,0 +1,44 @@
+local dbdmods = {}
+
+function dbdmods.AwardAchivement(name,desc,icon)
+
+    local scr = game.Players.LocalPlayer.PlayerGui.BadgeObtainUI.BadgeObtainHandler
+    L_Holder_2 = scr.Parent.Holder
+
+    local settings = {name,desc,icon}
+    local S_TweenService_1 = game:GetService("TweenService")
+
+    scr.Sound:Play()
+    L_Holder_2.Position = UDim2.new(1, 10, 0, 10)
+    L_Holder_2.BadgeName.Text = settings[1]
+    L_Holder_2.Icon.Image = "rbxassetid://"..tostring(settings[3])
+    L_Holder_2.Icon.Border.Color = Color3.fromRGB(255, 255, 255)
+    L_Holder_2.BadgeDescription.Text = settings[2]
+    L_Holder_2.Visible = true
+    S_TweenService_1:Create(L_Holder_2, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(1, -210, 0, 10)}):Play()
+    task.wait(6)
+    S_TweenService_1:Create(L_Holder_2, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(1, 10, 0, 10)}):Play()
+    task.wait(1)
+    L_Holder_2.Visible = false
+
+end
+
+function dbdmods.DieBasic()
+    fireclickdetector(workspace.TestDeath.ClickDetector)
+end
+
+function dbdmods.GetRush()
+    return workspace.ActiveEntities:FindFirstChild("Rush")
+end
+
+function dbdmods.GetAmbush()
+    return workspace.ActiveEntities:FindFirstChild("Ambush")
+end
+
+function dbdmods.GetSeek()
+    return workspace.ActiveEntities:FindFirstChild("Seek")
+end
+
+function dbdmods.GetFigure()
+    return workspace.ActiveEntities:FindFirstChild("Figure")
+end
