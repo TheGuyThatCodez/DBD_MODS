@@ -1,6 +1,6 @@
-local dbdmods = {
+--local dbdmods = {
 
-function dbdmods.AwardAchivement(name,desc,icon)
+function DBD_AwardAchivement(name,desc,icon)
 
     local scr = game.Players.LocalPlayer.PlayerGui.BadgeObtainUI.BadgeObtainHandler
     L_Holder_2 = scr.Parent.Holder
@@ -21,26 +21,26 @@ function dbdmods.AwardAchivement(name,desc,icon)
     task.wait(1)
     L_Holder_2.Visible = false
 
-end,
+end
 
-function dbdmods.DieBasic()
+function DBD_DieBasic()
     fireclickdetector(workspace.TestDeath.ClickDetector)
-end,
+end
 
-function dbdmods.GetRush()
+function DBD_GetRush()
     return workspace.ActiveEntities:FindFirstChild("Rush")
-end,
+end
 
-function dbdmods.GetAmbush()
+function DBD_GetAmbush()
     return workspace.ActiveEntities:FindFirstChild("Ambush")
-end,
+end
 
-function dbdmods.GetSeek()
+function DBD_GetSeek()
     return workspace.ActiveEntities:FindFirstChild("Seek")
-end,
+end
 
-function dbdmods.GetFigure()
+function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
-end,
+end
 
-}
+--}
