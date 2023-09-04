@@ -1,4 +1,4 @@
---local dbdmods = {
+
 
 function DBD_AwardAchivement(name,desc,icon)
 
@@ -43,4 +43,4 @@ function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
 
---}
+
