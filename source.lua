@@ -38,7 +38,7 @@ function DBD_GetFigure()
 end
 
 DBD_Templates = {
-    Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true},
+    Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = false},
     Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = {2,6}},
 }
 
@@ -107,31 +107,31 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
     else
         for r=1,math.random(settings.Rebound[1],settings.Rebound[2]) do
             for i=iSTART,#segments do
-            print(segments[i].Name)
-            if segments[i]:FindFirstChild("RushPoints") then
-                local temp = segments[i].RushPoints:GetChildren()
-                table.sort(temp, function(a,b)
-                    return tonumber(a.Name) < tonumber(b.Name)
-                end)
-                for i=1,#temp do
-                    points[#points+1] = temp[i].CFrame.Position
+                print(segments[i].Name)
+                if segments[i]:FindFirstChild("RushPoints") then
+                    local temp = segments[i].RushPoints:GetChildren()
+                    table.sort(temp, function(a,b)
+                        return tonumber(a.Name) < tonumber(b.Name)
+                    end)
+                    for i=1,#temp do
+                        points[#points+1] = temp[i].CFrame.Position
+                    end
+                end
+                points[#points+1] = segments[i].Exit.Main.CFrame.Position
+            end
+            for i=iSTART,#segments do
+                print(segments[i].Name)
+                points[#points+1] = segments[i].Exit.Main.CFrame.Position
+                if segments[i]:FindFirstChild("RushPoints") then
+                    local temp = segments[i].RushPoints:GetChildren()
+                    table.sort(temp, function(a,b)
+                        return tonumber(a.Name) > tonumber(b.Name)
+                    end)
+                    for i=1,#temp do
+                        table.insert[points,1,temp[i].CFrame.Position]
+                    end
                 end
             end
-            points[#points+1] = segments[i].Exit.Main.CFrame.Position
-        end
-        for i=#segments,ISTART,-1 do
-            print(segments[i].Name)
-            if segments[i]:FindFirstChild("RushPoints") then
-                local temp = segments[i].RushPoints:GetChildren()
-                table.sort(temp, function(a,b)
-                    return tonumber(a.Name) > tonumber(b.Name)
-                end)
-                for i=1,#temp do
-                    points[#points+1] = temp[i].CFrame.Position
-                end
-            end
-            points[#points+1] = segments[i].Exit.Main.CFrame.Position
-        end
         end
     end
     
