@@ -43,15 +43,18 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
     local points={} --table of part points to go through in order
     local movePart=rushclone --rush/ambush part
 
+    print("Playing PlaySounds")
+
     if settings.PlaySounds then
         local Children = rushclone:GetChildren()
         for i=1,#Children do
             if table.find(settings.PlaySounds,Children[i].Name) then
-                print("Attempting to play sound")
                 Children[i]:Play()
             end
         end
     end
+
+    print("Wobbling PlaySounds")
 
     if settings.Wobble == nil then
         settings.Wobble = false
@@ -66,7 +69,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
         end)
     end
     
-    
+    print("Getting The Moves")
     
     local segments = workspace.Segments:GetChildren()
     table.sort(segments, function(a,b)
@@ -90,6 +93,8 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
         points[#points+1] = segments[i].Exit.Main.CFrame.Position
         
     end
+
+    print("Moving The Moves")
 
     if settings.Speed == nil then
         settings.Speed = 1
