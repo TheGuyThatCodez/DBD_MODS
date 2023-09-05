@@ -43,4 +43,6 @@ function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
 
+function DBD_SpawnRushlike(settings)
 
+end
