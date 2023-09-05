@@ -37,7 +37,9 @@ function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
 
-DBD_Templates = {Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true}
+DBD_Templates = {
+    Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true},
+    Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = {2,6}},
 }
 
 function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
@@ -88,20 +90,52 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
     if iSTART < 1 then
         iSTART = 1
     end
-    for i=iSTART,#segments do
-        print(segments[i].Name)
-        if segments[i]:FindFirstChild("RushPoints") then
-            local temp = segments[i].RushPoints:GetChildren()
-            table.sort(temp, function(a,b)
-                return tonumber(a.Name) < tonumber(b.Name)
-            end)
-            for i=1,#temp do
-                points[#points+1] = temp[i].CFrame.Position
+    if not settings.Rebound then
+        for i=iSTART,#segments do
+            print(segments[i].Name)
+            if segments[i]:FindFirstChild("RushPoints") then
+                local temp = segments[i].RushPoints:GetChildren()
+                table.sort(temp, function(a,b)
+                    return tonumber(a.Name) < tonumber(b.Name)
+                end)
+                for i=1,#temp do
+                    points[#points+1] = temp[i].CFrame.Position
+                end
             end
+            points[#points+1] = segments[i].Exit.Main.CFrame.Position
         end
-        points[#points+1] = segments[i].Exit.Main.CFrame.Position
-        
+    else
+        for r=1,math.random(settings.Rebound[1],settings.Rebound[2]) do
+            for i=iSTART,#segments do
+            print(segments[i].Name)
+            if segments[i]:FindFirstChild("RushPoints") then
+                local temp = segments[i].RushPoints:GetChildren()
+                table.sort(temp, function(a,b)
+                    return tonumber(a.Name) < tonumber(b.Name)
+                end)
+                for i=1,#temp do
+                    points[#points+1] = temp[i].CFrame.Position
+                end
+            end
+            points[#points+1] = segments[i].Exit.Main.CFrame.Position
+        end
+        for i=#segments,ISTART,-1 do
+            print(segments[i].Name)
+            if segments[i]:FindFirstChild("RushPoints") then
+                local temp = segments[i].RushPoints:GetChildren()
+                table.sort(temp, function(a,b)
+                    return tonumber(a.Name) > tonumber(b.Name)
+                end)
+                for i=1,#temp do
+                    points[#points+1] = temp[i].CFrame.Position
+                end
+            end
+            points[#points+1] = segments[i].Exit.Main.CFrame.Position
+        end
+        end
     end
+    
+    
 
     print("Moving The Moves & Killing The Players")
 
@@ -111,9 +145,6 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
 
     task.spawn(function()
         if not settings.Kills then
-            return -1
-        end
-        if game.Players.LocalPlayer:GetAttribute("Hidden") then
             return -1
         end
         while rushclone do
@@ -132,7 +163,9 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
         
             if raycastResult then
                 if raycastResult.Instance.Parent:FindFirstChild("Humanoid") then
-                    DBD_DieBasic()
+                    if not game.Players.LocalPlayer:GetAttribute("Hidden") then
+                        DBD_DieBasic()
+                    end
                 end
             else
                     
