@@ -150,7 +150,7 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
     
     local tweenService=game:GetService("TweenService")
     rushclone.CFrame=CFrame.new(points[1])
-    if settings.Rebound then
+    if not settings.Rebound then
         for i,v in pairs(points) do
           local d=(rushclone.CFrame.Position-v).Magnitude
           local t=d/speed
