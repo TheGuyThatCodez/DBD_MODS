@@ -47,6 +47,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
         local Children = rushclone:GetChildren()
         for i=1,#Children do
             if table.find(settings.PlaySounds,Children[i].Name) then
+                print("Attempting to play sound")
                 Children[i]:Play()
             end
         end
