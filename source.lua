@@ -39,7 +39,7 @@ end
 
 DBD_Templates = {
     Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = false},
-    Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = {2,6}},
+    Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = false,Speed = 1,Kills = true,Rebound = {2,6}},
 }
 
 function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble true/false, Speed number, Kills true/false, Rebound {min,max},
@@ -116,7 +116,7 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
         if not settings.Kills then
             return -1
         end
-        while rushclone.Parent = workspace.ActiveEntities do
+        while rushclone.Parent == workspace.ActiveEntities do
             wait()
             local rayOrigin = rushclone.Position
             local rayDirection = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position).LookVector * 15
@@ -158,19 +158,21 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
           task.wait(t)
         end
     else
-        for i=1,#points do
-            v = points[i]
-            local d=(rushclone.CFrame.Position-v).Magnitude
-            local t=d/speed
-            tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
-            task.wait(t)
-        end
-        for i=1,#points do
-            v = points[#points-(i-1)]
-            local d=(rushclone.CFrame.Position-v).Magnitude
-            local t=d/speed
-            tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
-            task.wait(t)
+        for r=1,math.random(settings.Rebound[1],settings.Rebound[2]) do
+            for i=1,#points do
+                v = points[i]
+                local d=(rushclone.CFrame.Position-v).Magnitude
+                local t=d/speed
+                tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
+                task.wait(t)
+            end
+            for i=1,#points do
+                v = points[#points-(i-1)]
+                local d=(rushclone.CFrame.Position-v).Magnitude
+                local t=d/speed
+                tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
+                task.wait(t)
+            end
         end
     end
     
