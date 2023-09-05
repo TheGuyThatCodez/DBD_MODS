@@ -165,8 +165,8 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
             tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
             task.wait(t)
         end
-        for i=#points,1, -1 do
-            v = points[i]
+        for i=1,#points do
+            v = points[#points-(i-1)]
             local d=(rushclone.CFrame.Position-v).Magnitude
             local t=d/speed
             tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
