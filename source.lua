@@ -1,11 +1,8 @@
 function DBD_AwardAchivement(name,desc,icon)
-
     local scr = game.Players.LocalPlayer.PlayerGui.BadgeObtainUI.BadgeObtainHandler
     L_Holder_2 = scr.Parent.Holder
-
     local settings = {name,desc,icon}
     local S_TweenService_1 = game:GetService("TweenService")
-
     scr.Sound:Play()
     L_Holder_2.Position = UDim2.new(1, 10, 0, 10)
     L_Holder_2.BadgeName.Text = settings[1]
@@ -18,7 +15,6 @@ function DBD_AwardAchivement(name,desc,icon)
     S_TweenService_1:Create(L_Holder_2, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(1, 10, 0, 10)}):Play()
     task.wait(1)
     L_Holder_2.Visible = false
-
 end
 
 function DBD_DieBasic()
