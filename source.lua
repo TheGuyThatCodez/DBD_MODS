@@ -37,6 +37,9 @@ function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
 
+DBD_Templates = {Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true}
+}
+
 function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
     local rushclone = settings.Model:Clone()
     rushclone.Parent = workspace.ActiveEntities
