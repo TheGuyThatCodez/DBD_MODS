@@ -37,7 +37,7 @@ function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
 
-function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
+function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kill
     local rushclone = settings.Model:Clone()
     rushclone.Parent = workspace.ActiveEntities
     local points={} --table of part points to go through in order
@@ -98,7 +98,31 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
         
     end
 
-    print("Moving The Moves")
+    print("Moving The Moves & Killing The Players")
+
+    task.spawn(function()
+        while rushclone do
+            local rayOrigin = rushclone.Position
+            local rayDirection = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position).LookVector * 15
+        
+            rush.CFrame = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position) 
+        
+            local raycastParams = RaycastParams.new()
+            raycastParams.FilterDescendantsInstances = {rush}
+            raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+            raycastParams.RespectCanCollide = true
+        
+            local raycastResult = workspace:Raycast(rayOrigin, rayDirection,raycastParams)
+        
+            if raycastResult then
+                if raycastResult.Instance.Parent:FindFirstChild("Humanoid") then
+                    DBD_DieBasic()
+                end
+            else
+                    
+            end
+        end
+    end)
 
     if settings.Speed == nil then
         settings.Speed = 1
