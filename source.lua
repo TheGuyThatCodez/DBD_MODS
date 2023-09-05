@@ -115,7 +115,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
             local rayOrigin = rushclone.Position
             local rayDirection = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position).LookVector * 15
         
-            rush.CFrame = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position) 
+            rushclone.CFrame = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position) 
         
             local raycastParams = RaycastParams.new()
             raycastParams.FilterDescendantsInstances = {rush}
