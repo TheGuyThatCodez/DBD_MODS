@@ -48,12 +48,21 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
     rushclone.Parent = workspace.ActiveEntities
     local points={} --table of part points to go through in order
     local movePart=rushclone --rush/ambush part
-    
-    for i=1,#settings.PlaySounds do
-        settings.PlaySounds[i]:Play()
+
+    if settings.PlaySounds then
+        local Children = rushclone:GetChildren()
+        for i=1,#Children do
+            if table.find(settings.PlaySounds,Children[i].Name) then
+                Children[i]:Play()
+            end
+        end
     end
 
-    if settings.Wobble then
+    if settings.Wobble == nil then
+        settings.Wobble = false
+    end
+
+    if settings.Wobble then --Basically only vanilla rush uses this, otherwise useless
         task.spawn(function()
             while true do
                 wait(0.4)
@@ -72,7 +81,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
             return false
         end
     end)
-    for i=workspace.CurrentRoom.Value-10,#segments do
+    for i=math.clamp(workspace.CurrentRoom.Value-10,1),#segments do
         print(segments[i].Name)
         if segments[i]:FindFirstChild("RushPoints") then
             local temp = segments[i].RushPoints:GetChildren()
@@ -85,6 +94,10 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
         end
         points[#points+1] = segments[i].Exit.Main.CFrame.Position
         
+    end
+
+    if settings.Speed == nil then
+        settings.Speed = 1
     end
     
     local speed=60*settings.Speed
