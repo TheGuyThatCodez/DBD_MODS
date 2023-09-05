@@ -42,7 +42,7 @@ DBD_Templates = {
     Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = {2,6}},
 }
 
-function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
+function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble true/false, Speed number, Kills true/false, Rebound {min,max},
     local rushclone = settings.Model:Clone()
     rushclone.Parent = workspace.ActiveEntities
     local points={} --table of part points to go through in order
@@ -90,49 +90,18 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
     if iSTART < 1 then
         iSTART = 1
     end
-    if not settings.Rebound then
-        for i=iSTART,#segments do
-            print(segments[i].Name)
-            if segments[i]:FindFirstChild("RushPoints") then
-                local temp = segments[i].RushPoints:GetChildren()
-                table.sort(temp, function(a,b)
-                    return tonumber(a.Name) < tonumber(b.Name)
-                end)
-                for i=1,#temp do
-                    points[#points+1] = temp[i].CFrame.Position
-                end
-            end
-            points[#points+1] = segments[i].Exit.Main.CFrame.Position
-        end
-    else
-        for r=1,math.random(settings.Rebound[1],settings.Rebound[2]) do
-            for i=iSTART,#segments do
-                print(segments[i].Name)
-                if segments[i]:FindFirstChild("RushPoints") then
-                    local temp = segments[i].RushPoints:GetChildren()
-                    table.sort(temp, function(a,b)
-                        return tonumber(a.Name) < tonumber(b.Name)
-                    end)
-                    for i=1,#temp do
-                        points[#points+1] = temp[i].CFrame.Position
-                    end
-                end
-                points[#points+1] = segments[i].Exit.Main.CFrame.Position
-            end
-            for i=iSTART,#segments do
-                print(segments[i].Name)
-                points[#points+1] = segments[i].Exit.Main.CFrame.Position
-                if segments[i]:FindFirstChild("RushPoints") then
-                    local temp = segments[i].RushPoints:GetChildren()
-                    table.sort(temp, function(a,b)
-                        return tonumber(a.Name) > tonumber(b.Name)
-                    end)
-                    for i=1,#temp do
-                        table.insert(points,1,temp[i].CFrame.Position)
-                    end
-                end
+    for i=iSTART,#segments do
+        print(segments[i].Name)
+        if segments[i]:FindFirstChild("RushPoints") then
+            local temp = segments[i].RushPoints:GetChildren()
+            table.sort(temp, function(a,b)
+                return tonumber(a.Name) < tonumber(b.Name)
+            end)
+            for i=1,#temp do
+                points[#points+1] = temp[i].CFrame.Position
             end
         end
+        points[#points+1] = segments[i].Exit.Main.CFrame.Position
     end
     
     
@@ -181,11 +150,29 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
     
     local tweenService=game:GetService("TweenService")
     rushclone.CFrame=CFrame.new(points[1])
-    for i,v in pairs(points) do
-      local d=(rushclone.CFrame.Position-v).Magnitude
-      local t=d/speed
-       tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
-      task.wait(t)
+    if settings.Rebound then
+        for i,v in pairs(points) do
+          local d=(rushclone.CFrame.Position-v).Magnitude
+          local t=d/speed
+           tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
+          task.wait(t)
+        end
+    else
+        for i=1,#points do
+            v = points[i]
+            local d=(rushclone.CFrame.Position-v).Magnitude
+            local t=d/speed
+            tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
+            task.wait(t)
+        end
+        for i=#points,1, -1 do
+            v = points[i]
+            local d=(rushclone.CFrame.Position-v).Magnitude
+            local t=d/speed
+            tweenService:Create(rushclone,TweenInfo.new(t,Enum.EasingStyle.Linear),{CFrame=CFrame.new(v)}):Play()
+            task.wait(t)
+        end
     end
+    
     rushclone:Destroy()
 end
