@@ -64,10 +64,9 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
         task.spawn(function()
             while true do
                 if rushclone then
-                    wait(0.4)
                     movePart.Distant.SoundGroup.Pitch.Octave = math.random(50,70)/100
                 end
-                
+                wait(0.4)
             end
         end)
     end
