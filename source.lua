@@ -79,7 +79,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed
             return false
         end
     end)
-    for i=math.clamp(workspace.CurrentRoom.Value-10,1,999),#segments do
+    for i=math.clamp(workspace.CurrentRoom.Value-10,1,100),#segments do
         print(segments[i].Name)
         if segments[i]:FindFirstChild("RushPoints") then
             local temp = segments[i].RushPoints:GetChildren()
