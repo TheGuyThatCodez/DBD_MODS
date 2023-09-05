@@ -128,7 +128,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
                         return tonumber(a.Name) > tonumber(b.Name)
                     end)
                     for i=1,#temp do
-                        table.insert[points,1,temp[i].CFrame.Position]
+                        table.insert(points,1,temp[i].CFrame.Position)
                     end
                 end
             end
