@@ -116,7 +116,7 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
         if not settings.Kills then
             return -1
         end
-        while rushclone do
+        while rushclone.Parent = workspace.ActiveEntities do
             wait()
             local rayOrigin = rushclone.Position
             local rayDirection = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position).LookVector * 15
