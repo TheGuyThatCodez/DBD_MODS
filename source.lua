@@ -37,7 +37,7 @@ function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
 
-function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kill
+function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
     local rushclone = settings.Model:Clone()
     rushclone.Parent = workspace.ActiveEntities
     local points={} --table of part points to go through in order
@@ -100,7 +100,17 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kill
 
     print("Moving The Moves & Killing The Players")
 
+    if settings.Kills == nil then
+        settings.Kills = false
+    end
+
     task.spawn(function()
+        if not settings.Kills then
+            return -1
+        end
+        if game.Players.LocalPlayer:GetAttribute("Hidden") then
+            return -1
+        end
         while rushclone do
             local rayOrigin = rushclone.Position
             local rayDirection = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position).LookVector * 15
