@@ -1,5 +1,3 @@
-
-
 function DBD_AwardAchivement(name,desc,icon)
 
     local scr = game.Players.LocalPlayer.PlayerGui.BadgeObtainUI.BadgeObtainHandler
