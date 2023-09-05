@@ -117,6 +117,7 @@ function DBD_SpawnRushlike(settings) -- Model, PlaySounds, Wobble, Speed, Kills
             return -1
         end
         while rushclone do
+            wait()
             local rayOrigin = rushclone.Position
             local rayDirection = CFrame.lookAt(rayOrigin,game.Players.LocalPlayer.Character.Head.Position).LookVector * 15
         
