@@ -61,7 +61,7 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
     local rushclone = settings.Model:Clone()
     --local events = {Instance.new("BindableEvent",Parent = rushclone)}
     
-    task.spawn(function(settings)
+    task.spawn(function()
         
         rushclone.Parent = workspace.ActiveEntities
         local points={} --table of part points to go through in order
