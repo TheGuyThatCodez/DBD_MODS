@@ -59,7 +59,7 @@ DBD_Templates = {
 function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble true/false, Speed number, Kills true/false, Rebound {min,max},
     --Events: OnTouch (hiding true/false)
     local rushclone = settings.Model:Clone()
-    local events = {Instance.new("BindableEvent",Parent = rushclone)}
+    --local events = {Instance.new("BindableEvent",Parent = rushclone)}
     
     task.spawn(function(settings)
         
@@ -154,7 +154,7 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
                             end
                             
                         end
-                        events[1]:Fire(game.Players.LocalPlayer:GetAttribute("Hidden"))
+                        --events[1]:Fire(game.Players.LocalPlayer:GetAttribute("Hidden"))
                     end
                 else
                         
