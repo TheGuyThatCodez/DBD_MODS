@@ -6,4 +6,4 @@ aka make ur own mods
 
 
 
-do ```loadstring(game:HttpGet('https://raw.githubusercontent.com/TheGuyThatCodez/DBD_MODS/master/source'))().lua``` to load
+do ```loadstring(game:HttpGet('https://raw.githubusercontent.com/TheGuyThatCodez/DBD_MODS/master/source.lua'))()``` to load
