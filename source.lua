@@ -51,7 +51,7 @@ workspace.CurrentRoom.Changed:Connect(function(value)
     inside_DoorOpened:Fire(value,segments[value])
 end)                              
 
-DBD_Templates = {
+DBD_Templates = { 
     Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = false},
     Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = false,Speed = 1,Kills = true,Rebound = {2,6}},
 }
