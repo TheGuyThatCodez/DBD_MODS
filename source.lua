@@ -1,3 +1,5 @@
+--Awards a (fake) achivement.
+--Example: DBD_AwardAchivement("Test","This is a example!",5902417546)
 function DBD_AwardAchivement(name,desc,icon)
     local scr = game.Players.LocalPlayer.PlayerGui.BadgeObtainUI.BadgeObtainHandler
     L_Holder_2 = scr.Parent.Holder
@@ -16,27 +18,29 @@ function DBD_AwardAchivement(name,desc,icon)
     task.wait(1)
     L_Holder_2.Visible = false
 end
-
+--Kills the player. Might not work depending on what executer your using.
+--Example: DBD_DieBasic()
 function DBD_DieBasic()
     fireclickdetector(workspace.TestDeath.ClickDetector)
 end
-
+--Gets rush.
 function DBD_GetRush()
     return workspace.ActiveEntities:FindFirstChild("Rush")
 end
-
+--Gets ambush.
 function DBD_GetAmbush()
     return workspace.ActiveEntities:FindFirstChild("Ambush")
 end
-
+--Gets seek.
 function DBD_GetSeek()
     return workspace.ActiveEntities:FindFirstChild("Seek")
 end
-
+--Gets figure.
 function DBD_GetFigure()
     return workspace.ActiveEntities:FindFirstChild("Figure")
 end
-
+--Fires every time a door opens.
+--Example: DBD_DoorOpened:Connect(function(print("Door opened!")))
 local inside_DoorOpened = Instance.new("BindableEvent")
 DBD_DoorOpened = inside_DoorOpened.Event
 workspace.CurrentRoom.Changed:Connect(function(value)
@@ -50,16 +54,16 @@ workspace.CurrentRoom.Changed:Connect(function(value)
     end)
     inside_DoorOpened:Fire(value,segments[value])
 end)                              
-
+--Templates for a large amount of things.
+--Example: DBD_Templates.Ambush
 DBD_Templates = { 
     Rush = {Model = game.ReplicatedStorage.Entities.Rush,PlaySounds = {"Distant","Near"},Wobble = true,Speed = 1,Kills = true,Rebound = false},
     Ambush = {Model = game.ReplicatedStorage.Entities.Ambush,PlaySounds = {"Static","Near"},Wobble = false,Speed = 1,Kills = true,Rebound = {2,6}},
 }
-
+--Spawns a rushing entity.
+--Example: DBD_SpawnRushlike(DBD_Templates.Rush)
 function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble true/false, Speed number, Kills true/false, Rebound {min,max},
-    --Events: OnTouch (hiding true/false)
     local rushclone = settings.Model:Clone()
-    --local events = {Instance.new("BindableEvent",Parent = rushclone)}
     
     task.spawn(function()
         
