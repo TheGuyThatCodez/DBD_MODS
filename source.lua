@@ -64,6 +64,17 @@ DBD_Templates = {
 --Example: DBD_SpawnRushlike(DBD_Templates.Rush)
 function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble true/false, Speed number, Kills true/false, Rebound {min,max},
     local rushclone = settings.Model:Clone()
+
+    
+    --OnTouch
+    --Example: spawnentity.Events.OnTouch = function(hidden) print("Hello world!") end
+    local Events = {OnTouch = function(hidden)   
+        if not hidden then
+            if not settings.Kills then
+                return DBD_DieBasic()
+            end           
+        end
+    end}
     
     task.spawn(function()
         
@@ -152,12 +163,8 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
             
                 if raycastResult then
                     if raycastResult.Instance.Parent:FindFirstChild("Humanoid") and raycastResult.Instance.Parent == game.Players.LocalPlayer.Character then
-                        if not game.Players.LocalPlayer:GetAttribute("Hidden") then
-                            if not settings.Kills then
-                                return DBD_DieBasic()
-                            end
-                            
-                        end
+                                
+                        Events.OnTouch(game.Players.LocalPlayer:GetAttribute("Hidden"))
                         --events[1]:Fire(game.Players.LocalPlayer:GetAttribute("Hidden"))
                     end
                 else
@@ -202,5 +209,5 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
         
         rushclone:Destroy()
     end)
-    return events
+    return Events
 end
