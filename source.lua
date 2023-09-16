@@ -68,13 +68,14 @@ function DBD_SpawnRushlike(settings) -- Model model, PlaySounds {Sound}, Wobble 
     
     --OnTouch
     --Example: spawnentity.Events.OnTouch = function(hidden) print("Hello world!") end
+    --NOT EVERYTHING INSIDE OF EVENTS ARE EVENTS (Sorry. im dumb)
     local Events = {OnTouch = function(hidden)   
         if not hidden then
             if not settings.Kills then
                 return DBD_DieBasic()
             end           
         end
-    end}
+    end,Model = rushclone}
     
     task.spawn(function()
         
